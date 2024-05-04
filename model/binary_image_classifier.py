@@ -123,12 +123,12 @@ fic.CNN.save('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/CNN-Fractur
 fic.load_model('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/CNN-FractureImageClassifier.keras')
 
 # read/parse image 
-image_path = os.path.join(fic.data_dir,'fracture4.png')   # change this
+image_path = os.path.join(fic.data_dir,'NameOfFile')   # change this
 image = parse_unknown(image_path)
 image = np.expand_dims(image, axis=0)
 
 # make prediction
-prediction, prediction_class = fic.predict(fic.test_dataset)  # change this
+prediction, prediction_class = fic.predict(image)  # change this
 print(prediction, prediction_class)
 
 
