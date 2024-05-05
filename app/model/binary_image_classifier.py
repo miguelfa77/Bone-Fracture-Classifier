@@ -126,7 +126,6 @@ fic.load_model('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/CNN-Fract
 filename = 'fracture5.jpeg'  # change this
 image_path = os.path.join(fic.data_dir,filename)   # change this
 image = parse_unknown(image_path)
-image = np.expand_dims(image, axis=0)
 
 # make prediction
 prediction, prediction_class = fic.predict(image)  # change this

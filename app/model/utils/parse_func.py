@@ -1,5 +1,7 @@
 import os
 import tensorflow as tf
+import numpy as np
+from PIL import Image
 # Decodes PNG, resizes Image and normalizes pixels from 0-1.
 def parse_known(filename):
     parts = tf.strings.split(filename, os.sep)
@@ -17,4 +19,13 @@ def parse_unknown(filename):
     image = tf.image.decode_png(image, channels=3)
     image = tf.image.resize(image, [128, 128])
     image = image / 255.0
+    return image, tf.cast(label, tf.int32)
+
+def parse_streamlit(filename):
+    image = Image.open(filename)
+    image = image.convert('RGB')
+    image = np.array(image)
+    image = tf.image.resize(image, [128, 128])
+    image = image / 255.0
+    image = np.expand_dims(image, axis=0)
     return image
