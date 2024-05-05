@@ -1,7 +1,6 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-from PIL import Image
 
 from model.utils.parse_func import parse_streamlit
 
