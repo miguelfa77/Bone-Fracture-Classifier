@@ -17,9 +17,11 @@ def parse_known(filename):
 def parse_unknown(filename):
     image = tf.io.read_file(filename)
     image = tf.image.decode_png(image, channels=3)
+    image = np.array(image)
     image = tf.image.resize(image, [128, 128])
     image = image / 255.0
-    return image, tf.cast(label, tf.int32)
+    image = np.expand_dims(image, axis=0)
+    return image
 
 def parse_streamlit(filename):
     image = Image.open(filename)

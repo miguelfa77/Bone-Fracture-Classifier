@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import keras
 from PIL import Image
+from keras.callbacks import CSVLogger
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dense, Flatten, BatchNormalization, Dropout
 from tensorflow import keras
 import ssl
@@ -18,7 +19,7 @@ class FractureImageClassifier:
         # mapping number with class
         self.classes = {0: 'not fractured', 1: 'fractured'}
         # define paths
-        self.data_dir = os.path.join(os.getcwd(),'model/data')
+        self.data_dir = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/data'
         self.train_dir = os.path.join(self.data_dir,'train')
         self.val_dir = os.path.join(self.data_dir,'val')
         self.test_dir = os.path.join(self.data_dir,'test')
@@ -87,10 +88,13 @@ class FractureImageClassifier:
         self.CNN.compile(optimizer='adam',
               loss='binary_crossentropy',
               metrics=['binary_accuracy'])
+        # define log history
+        csv_logger = CSVLogger('training.log', separator=',', append=False)
         # train the model and validate
         training = self.CNN.fit(train,
-                     validation_data=validation,
-                    epochs=10)
+                    validation_data=validation,
+                    epochs=10,
+                    callbacks=[csv_logger])
         # plot loss metrics and evaluate model performance on val set
         cnn_history = pd.DataFrame(training.history)
         cnn_history.loc[:, ['loss', 'val_loss']].plot()
@@ -116,15 +120,14 @@ fic = FractureImageClassifier()
 
 # train/save or load model
 """
-fic.train(fic.train_dataset, fic.val_dataset)
+fic.train(train=fic.train_dataset, validation=fic.val_dataset)
 fic.CNN.save('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
 """
-
-fic.load_model('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
+fic.load_model(model='/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
 
 # read/parse image 
 filename = 'fracture5.jpeg'  # change this
-image_path = os.path.join(fic.data_dir,filename)   # change this
+image_path = os.path.join(fic.data_dir,filename)
 image = parse_unknown(image_path)
 
 # make prediction
@@ -137,9 +140,8 @@ plt.figure(figsize=(5,5))
 plt.title(f'{prediction}:{prediction_class}')
 plt.imshow(Image.open(image_path))
 plt.show()
+"""
 plt.savefig(f'/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/test_prediction_{filename}')
-
-
-fic.evaluate(fic.test_dataset)
+"""
 
 
