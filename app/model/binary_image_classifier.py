@@ -53,7 +53,7 @@ class FractureImageClassifier:
 
         self.predictions = None
 
-    def load_model(self, model_path='/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/CNN-FractureImageClassifier.keras'):
+    def load_model(self, model_path='/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras'):
         try:
             self.CNN = tf.keras.models.load_model(
                 model_path, custom_objects=None, compile=True, safe_mode=True
@@ -117,10 +117,10 @@ fic = FractureImageClassifier()
 # train/save or load model
 """
 fic.train(fic.train_dataset, fic.val_dataset)
-fic.CNN.save('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/CNN-FractureImageClassifier.keras')
+fic.CNN.save('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
 """
 
-fic.load_model('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/CNN-FractureImageClassifier.keras')
+fic.load_model('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
 
 # read/parse image 
 filename = 'fracture5.jpeg'  # change this
@@ -137,7 +137,7 @@ plt.figure(figsize=(5,5))
 plt.title(f'{prediction}:{prediction_class}')
 plt.imshow(Image.open(image_path))
 plt.show()
-plt.savefig(f'/Users/miguelfa/Desktop/Bone-Fracture-Classifier/model/prediction_{filename}')
+plt.savefig(f'/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/test_prediction_{filename}')
 
 
 fic.evaluate(fic.test_dataset)
