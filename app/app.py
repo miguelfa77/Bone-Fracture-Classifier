@@ -6,11 +6,14 @@ import pandas as pd
 
 from model.utils.parse_func import parse_streamlit
 
+MODEL_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras'
+MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/training.log'
+
 # Load the trained model
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
-    model_history = pd.read_csv('training.log',sep=',',engine='python')
+    model = tf.keras.models.load_model(MODEL_PATH)
+    model_history = pd.read_csv(MODEL_HISTORY_PATH,sep=',',engine='python')
     return model, model_history
 
 # Classify based on image and model

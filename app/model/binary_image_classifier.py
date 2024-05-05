@@ -19,6 +19,8 @@ class FractureImageClassifier:
         # mapping number with class
         self.classes = {0: 'not fractured', 1: 'fractured'}
         # define paths
+        self.MODEL_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras'
+        self.MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/training.log'
         self.data_dir = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/data'
         self.train_dir = os.path.join(self.data_dir,'train')
         self.val_dir = os.path.join(self.data_dir,'val')
@@ -89,7 +91,7 @@ class FractureImageClassifier:
               loss='binary_crossentropy',
               metrics=['binary_accuracy'])
         # define log history
-        csv_logger = CSVLogger('training.log', separator=',', append=False)
+        csv_logger = CSVLogger(self.MODEL_HISTORY_PATH, separator=',', append=False)
         # train the model and validate
         training = self.CNN.fit(train,
                     validation_data=validation,
@@ -115,33 +117,35 @@ class FractureImageClassifier:
         print(f"Test Accuracy: {test_accuracy}")
 
 
-# create instance
-fic = FractureImageClassifier()
 
-# train/save or load model
-"""
-fic.train(train=fic.train_dataset, validation=fic.val_dataset)
-fic.CNN.save('/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
-"""
-fic.load_model(model='/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras')
+if __name__=="__main__":
+    # create instance
+    fic = FractureImageClassifier()
 
-# read/parse image 
-filename = 'fracture5.jpeg'  # change this
-image_path = os.path.join(fic.data_dir,filename)
-image = parse_unknown(image_path)
+    # train/save or load model
+    """
+    fic.train(train=fic.train_dataset, validation=fic.val_dataset)
+    fic.CNN.save(fic.MODEL_PATH)
+    """
+    fic.load_model(model=fic.MODEL_PATH)
 
-# make prediction
-prediction, prediction_class = fic.predict(image)  # change this
-print(prediction, prediction_class)
+    # read/parse image 
+    filename = 'fracture5.jpeg'  # CHANGE THIS
+    image_path = os.path.join(fic.data_dir,filename)
+    image = parse_unknown(image_path)
+
+    # make prediction
+    prediction, prediction_class = fic.predict(image)  # CHANGE THIS
+    print(prediction, prediction_class)
 
 
-# show prediction
-plt.figure(figsize=(5,5))
-plt.title(f'{prediction}:{prediction_class}')
-plt.imshow(Image.open(image_path))
-plt.show()
-"""
-plt.savefig(f'/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/test_prediction_{filename}')
-"""
+    # show prediction
+    plt.figure(figsize=(5,5))
+    plt.title(f'{prediction}:{prediction_class}')
+    plt.imshow(Image.open(image_path))
+    plt.show()
+    """
+    plt.savefig(f'/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/test_prediction_{filename}')
+    """
 
 
