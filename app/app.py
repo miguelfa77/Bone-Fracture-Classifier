@@ -55,7 +55,7 @@ page = st.sidebar.radio("Navigation", ["Upload Image", "Plots"])
 if page == "Upload Image":
     st.title('Fracture Image Classifier')
     # Upload image and perform prediction
-    st.write("Upload image and perform prediction here...")
+    st.write("Upload image and perform prediction here... Allowed Types: [JPG, JPEG, PNG]")
     # Upload file
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
