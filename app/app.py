@@ -6,8 +6,8 @@ import pandas as pd
 
 from model.utils.parse_func import parse_streamlit
 
-MODEL_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras'
-MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/training.log'
+MODEL_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/CNN-FractureImageClassifier.keras'
+MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/training.log'
 
 # Load the trained model
 @st.cache(allow_output_mutation=True)

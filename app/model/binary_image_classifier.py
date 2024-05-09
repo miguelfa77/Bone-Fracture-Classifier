@@ -19,9 +19,9 @@ class FractureImageClassifier:
         # mapping number with class
         self.classes = {0: 'not fractured', 1: 'fractured'}
         # define paths
-        self.MODEL_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras'
-        self.MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/training.log'
-        self.data_dir = '/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/data'
+        self.MODEL_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/CNN-FractureImageClassifier.keras'
+        self.MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/training.log'
+        self.data_dir = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/data'
         self.train_dir = os.path.join(self.data_dir,'train')
         self.val_dir = os.path.join(self.data_dir,'val')
         self.test_dir = os.path.join(self.data_dir,'test')
@@ -56,7 +56,7 @@ class FractureImageClassifier:
 
         self.predictions = None
 
-    def load_model(self, model_path='/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/CNN-FractureImageClassifier.keras'):
+    def load_model(self, model_path='/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/CNN-FractureImageClassifier.keras'):
         try:
             self.CNN = tf.keras.models.load_model(
                 model_path, custom_objects=None, compile=True, safe_mode=True
@@ -145,7 +145,7 @@ if __name__=="__main__":
     plt.imshow(Image.open(image_path))
     plt.show()
     """
-    plt.savefig(f'/Users/miguelfa/Desktop/Bone-Fracture-Classifier/app/model/test_prediction_{filename}')
+    plt.savefig(f'/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/test_prediction_{filename}')
     """
 
 
