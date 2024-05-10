@@ -127,9 +127,7 @@ if __name__=="__main__":
     fic.train(train=fic.train_dataset, validation=fic.val_dataset)
     fic.CNN.save(fic.MODEL_PATH)
     """
-    fic.train(train=fic.train_dataset, validation=fic.val_dataset)
-    fic.CNN.save(fic.MODEL_PATH)
-    #fic.load_model(model=fic.MODEL_PATH)
+    fic.load_model(model=fic.MODEL_PATH)
 
     # read/parse image 
     filename = 'fracture5.jpeg'  # CHANGE THIS
