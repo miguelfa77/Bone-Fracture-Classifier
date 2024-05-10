@@ -12,13 +12,26 @@ MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/mod
 # Load the trained model
 @st.cache(allow_output_mutation=True)
 def load_model():
+    """
+    Loads our existing model and training history into app
+    returns:
+    model
+    model_history
+    """
+
     model = tf.keras.models.load_model(MODEL_PATH)
     model_history = pd.read_csv(MODEL_HISTORY_PATH,sep=',',engine='python')
     return model, model_history
 
 # Classify based on image and model
 @st.cache(allow_output_mutation=True)
-def model_predict(model, image):       
+def model_predict(model, image):
+    """
+    Predicts label and probability
+    returns:
+    prediction
+    prediction_class
+    """
     try:
         # predict 0 or 1 ('not fracture' or 'fracture')
         prediction = model.predict(image)
@@ -28,7 +41,13 @@ def model_predict(model, image):
         print(f'Failed to make predictions: {e}')
 
 # Plot training and validation losses  
-def plot(model_history):   
+def plot(model_history):
+    """
+    Plots our training history (loss and accuracy) into our app
+    returns:
+    plt
+    """ 
+
     fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(10, 8))
 
     # Plot training and validation losses

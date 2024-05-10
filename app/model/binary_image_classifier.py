@@ -16,6 +16,13 @@ from utils.parse_func import parse_known, parse_unknown
 
 class FractureImageClassifier:
     def __init__(self):
+        """
+        Creates datasets from existing directory files
+        vars: 
+        CNN: defines our Sequential model and layers
+        """
+
+
         # mapping number with class
         self.classes = {0: 'not fractured', 1: 'fractured'}
         # define paths
@@ -65,6 +72,10 @@ class FractureImageClassifier:
             print(f'Failed to load model from path: {e}')
             
     def load_data(self):
+        """
+        Gets a list of png files from a directory of files
+        returns: train_files, val_files, test_files
+        """
         try:
             train_files = list_png_files(self.train_dir)
             val_files = list_png_files(self.val_dir)
@@ -74,6 +85,10 @@ class FractureImageClassifier:
             print(f'Failed to load/read image files: {e}')
 
     def create_dataset(self, files):
+        """
+        Converts a list of files into a tf.Dataset
+        returns: dataset
+        """
         try:
             # Creates dataset for each element in png list.
             dataset = tf.data.Dataset.from_tensor_slices(files)
@@ -86,6 +101,13 @@ class FractureImageClassifier:
             print(f'Failed to convert files into tf.Dataset: {e}')
 
     def train(self, train, validation):
+        """
+        Trains model, compiles and fits.
+        params: 
+        optimizer: adam,
+        loss: binary_crossentropy,
+        metrics: binary_accuracy 
+        """
         # declare optimizer and loss function
         self.CNN.compile(optimizer='adam',
               loss='binary_crossentropy',
@@ -103,6 +125,11 @@ class FractureImageClassifier:
         cnn_history.loc[:, ['binary_accuracy', 'val_binary_accuracy']].plot()
 
     def predict(self, dataset):
+        """
+        Predicts classes and labels
+        predictions: sigmoid probability
+        prediction_classes: label
+        """
         try:
             # predict 0 or 1 ('not fracture' or 'fracture')
             self.predictions = self.CNN.predict(dataset)
@@ -111,8 +138,10 @@ class FractureImageClassifier:
         except Exception as e:
             print(f'Failed to make predictions: {e}')
         
-    def evaluate(self, dataset):    
-        # view performance on test set
+    def evaluate(self, dataset):
+        """
+        Prints performance on dataset
+        """    
         _, test_accuracy = self.CNN.evaluate(dataset)
         print(f"Test Accuracy: {test_accuracy}")
 
