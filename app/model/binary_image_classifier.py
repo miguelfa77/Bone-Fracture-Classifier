@@ -20,7 +20,7 @@ class FractureImageClassifier:
         self.classes = {0: 'not fractured', 1: 'fractured'}
         # define paths
         self.MODEL_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/CNN-FractureImageClassifier.keras'
-        self.MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/training.log'
+        self.MODEL_HISTORY_PATH = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/training.log'
         self.data_dir = '/Users/miguelfa/Desktop/BoneFractureClassifier-CNN/app/model/data'
         self.train_dir = os.path.join(self.data_dir,'train')
         self.val_dir = os.path.join(self.data_dir,'val')
@@ -127,7 +127,9 @@ if __name__=="__main__":
     fic.train(train=fic.train_dataset, validation=fic.val_dataset)
     fic.CNN.save(fic.MODEL_PATH)
     """
-    fic.load_model(model=fic.MODEL_PATH)
+    fic.train(train=fic.train_dataset, validation=fic.val_dataset)
+    fic.CNN.save(fic.MODEL_PATH)
+    #fic.load_model(model=fic.MODEL_PATH)
 
     # read/parse image 
     filename = 'fracture5.jpeg'  # CHANGE THIS
@@ -138,6 +140,8 @@ if __name__=="__main__":
     prediction, prediction_class = fic.predict(image)  # CHANGE THIS
     print(prediction, prediction_class)
 
+    # model evaluation
+    fic.evaluate(fic.test_dataset)
 
     # show prediction
     plt.figure(figsize=(5,5))
